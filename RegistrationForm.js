@@ -4,7 +4,7 @@ const querystring = require('querystring');
 
 const server = http.createServer((req, res) => {
   if (req.url === '/' && req.method === 'GET') {
-    // Serve the registration form
+    
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.write(`<!DOCTYPE html>
     <html lang="en">
@@ -56,16 +56,15 @@ const server = http.createServer((req, res) => {
     </html>`);
     res.end();
   } else if (req.url === '/RegistrationSuccessful!' && req.method === 'POST') {
-    // Handle form submission
+   
     let body = '';
     req.on('data', chunk => {
       body += chunk.toString();
     });
     req.on('end', () => {
-      // Parse form data
+     
       const formData = querystring.parse(body);
 
-      // Save form data to a file
       const dataToSave = `Name: ${formData.name}\nEmail: ${formData.email}\nPassword: ${formData.password}\nGender: ${formData.gender}\nCountry: ${formData.country}\n\n`;
       fs.appendFile('data.txt', dataToSave, (err) => {
         if (err) {
@@ -76,7 +75,7 @@ const server = http.createServer((req, res) => {
         }
         console.log('Data saved to data.txt');
 
-        // Send confirmation page
+       
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.write(`<!DOCTYPE html>
         <html lang="en">
@@ -106,7 +105,7 @@ const server = http.createServer((req, res) => {
       });
     });
   }else {
-    // Serve a custom 404 error page
+   
     res.writeHead(404, { 'Content-Type': 'text/html' });
     res.end(`<!DOCTYPE html>
     <html lang="en">
